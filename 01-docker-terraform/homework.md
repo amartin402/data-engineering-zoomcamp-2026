@@ -1,3 +1,4 @@
+<!-- Preview to the Side (Split view)	Ctrl + K then V -->
 # Module 1 Homework: Docker & SQL
 
 In this homework we'll prepare the environment and practice
@@ -24,6 +25,15 @@ What's the version of `pip` in the image?
 - 24.3.1
 - 24.2.1
 - 23.3.1
+
+>SOLUTION
+```bash
+pip -V
+```
+>ANSWER ✅
+```
+25.3
+```
 
 
 ## Question 2. Understanding Docker networking and docker-compose
@@ -68,7 +78,16 @@ volumes:
 - postgres:5432
 - db:5432
 
-If multiple answers are correct, select any 
+If multiple answers are correct, select any
+
+>SOLUTION
+```bash
+
+```
+>ANSWER ✅
+```
+
+```
 
 
 ## Prepare the Data
