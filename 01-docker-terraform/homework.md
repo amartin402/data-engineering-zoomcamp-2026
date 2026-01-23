@@ -80,13 +80,9 @@ volumes:
 
 If multiple answers are correct, select any
 
->SOLUTION
-```bash
-
-```
 >ANSWER ✅
 ```
-
+localhost:5432
 ```
 
 
@@ -113,6 +109,14 @@ For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2
 - 8,254
 - 8,421
 
+>SOLUTION
+```bash
+pip -V
+```
+>ANSWER ✅
+```
+25.3
+```
 
 ## Question 4. Longest trip for each day
 
@@ -125,6 +129,14 @@ Use the pick up time for your calculations.
 - 2025-11-23
 - 2025-11-25
 
+>SOLUTION
+```bash
+pip -V
+```
+>ANSWER ✅
+```
+25.3
+```
 
 ## Question 5. Biggest pickup zone
 
@@ -135,6 +147,14 @@ Which was the pickup zone with the largest `total_amount` (sum of all trips) on 
 - Morningside Heights
 - Forest Hills
 
+>SOLUTION
+```bash
+pip -V
+```
+>ANSWER ✅
+```
+25.3
+```
 
 ## Question 6. Largest tip
 
@@ -147,6 +167,14 @@ Note: it's `tip` , not `trip`. We need the name of the zone, not the ID.
 - East Harlem North
 - LaGuardia Airport
 
+>SOLUTION
+```bash
+pip -V
+```
+>ANSWER ✅
+```
+25.3
+```
 
 ## Terraform
 
