@@ -4,13 +4,9 @@
 import pandas as pd
 from tqdm.auto import tqdm
 from sqlalchemy import create_engine
+import click
 
-year=2021
-month=1
-chunksize=100000
-sql_table_name='yellow_taxi_data'
 prefix='https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow'
-url=f'{prefix}/yellow_tripdata_{year}-{month:02d}.csv.gz'
 
 
 dtype = {
@@ -37,18 +33,22 @@ parse_dates = [
     "tpep_dropoff_datetime"
 ]
 
-def main():
-    df = pd.read_csv(
-        url,
-        dtype=dtype,
-        parse_dates=parse_dates
-    )
-
-    pg_user = 'root'
-    pg_password = 'root'
-    pg_host = 'localhost'
-    pg_port = 5432
-    pg_db = 'ny_taxi'
+@click.command()
+@click.option('--year', type=int, default=2021, help='Year of data')
+@click.option('--month', type=int, default=1, help='Month of data')
+@click.option('--chunksize', type=int, default=100000, help='Chunk size for reading CSV')
+@click.option('--sql_table_name', type=str, default='yellow_taxi_data', help='SQL table name')
+@click.option('--pg_user', type=str, default='root', help='PostgreSQL user')
+@click.option('--pg_password', type=str, default='root', help='PostgreSQL password')
+@click.option('--pg_host', type=str, default='localhost', help='PostgreSQL host')
+@click.option('--pg_port', type=int, default=5432, help='PostgreSQL port')
+@click.option('--pg_db', type=str, default='ny_taxi', help='PostgreSQL database')
+def main(year, month, chunksize, sql_table_name, pg_user, pg_password, pg_host, pg_port, pg_db):
+    url = f'{prefix}/yellow_tripdata_{year}-{month:02d}.csv.gz'
+    
+    click.echo(f"Starting data ingestion...")
+    click.echo(f"URL: {url}")
+    click.echo(f"Table: {sql_table_name}")
 
     engine = create_engine(f'postgresql://{pg_user}:{pg_password}@{pg_host}:{pg_port}/{pg_db}')
 
