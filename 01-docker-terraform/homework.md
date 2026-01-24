@@ -82,7 +82,7 @@ If multiple answers are correct, select any
 
 >ANSWER ✅
 ```
-localhost:5432
+db:5432
 ```
 
 
