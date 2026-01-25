@@ -111,11 +111,13 @@ For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2
 
 >SOLUTION
 ```bash
-pip -V
+SELECT COUNT(1) AS Cnt
+	FROM public.green_tripdata
+WHERE lpep_pickup_datetime >='2025-11-01' and lpep_pickup_datetime <'2025-12-01' and trip_distance <= 1;
 ```
 >ANSWER ✅
 ```
-25.3
+8,007
 ```
 
 ## Question 4. Longest trip for each day
@@ -131,11 +133,15 @@ Use the pick up time for your calculations.
 
 >SOLUTION
 ```bash
-pip -V
+SELECT *
+	FROM public.green_tripdata
+WHERE trip_distance < 100 
+ORDER BY trip_distance DESC
+LIMIT 1;
 ```
 >ANSWER ✅
 ```
-25.3
+2025-11-14
 ```
 
 ## Question 5. Biggest pickup zone
@@ -149,11 +155,15 @@ Which was the pickup zone with the largest `total_amount` (sum of all trips) on 
 
 >SOLUTION
 ```bash
-pip -V
+SELECT tz."Zone", SUM("total_amount") as Total_Trips
+	FROM public.green_tripdata as td INNER JOIN public.taxi_zone_lookup as tz ON td."PULocationID" = tz."LocationID"
+WHERE CAST(lpep_pickup_datetime as date) = '2025-11-18'
+GROUP BY tz."Zone"
+ORDER BY Total_Trips DESC;
 ```
 >ANSWER ✅
 ```
-25.3
+East Harlem North
 ```
 
 ## Question 6. Largest tip
@@ -169,11 +179,18 @@ Note: it's `tip` , not `trip`. We need the name of the zone, not the ID.
 
 >SOLUTION
 ```bash
-pip -V
+SELECT tzdo."Zone", td."tip_amount"
+	FROM public.green_tripdata as td 
+	INNER JOIN public.taxi_zone_lookup as tzpu ON td."PULocationID" = tzpu."LocationID"
+	INNER JOIN public.taxi_zone_lookup as tzdo ON td."DOLocationID" = tzdo."LocationID"
+WHERE CAST(lpep_pickup_datetime as date) >= '2025-11-01' and CAST(lpep_pickup_datetime as date) <= '2025-11-30'
+and tzpu."Zone" = 'East Harlem North'
+ORDER BY "tip_amount" DESC
+LIMIT 1;
 ```
 >ANSWER ✅
 ```
-25.3
+Yorkville West
 ```
 
 ## Terraform
