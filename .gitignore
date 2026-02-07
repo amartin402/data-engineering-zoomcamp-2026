@@ -1,5 +1,7 @@
 *.tfstate
 *.tfstate.*
+*.tfvars
+*.tfvars.json
 **.terraform
 **.terraform.lock.*
 **google_credentials.json
@@ -13,3 +15,15 @@ serving_dir
 !week_6_stream_processing/avro_example/data/rides.csv
 *.parquet
 *.csv
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.json
+*.log
+*.tfplan
+*.tfplan.*
+*.zip
+*.tar.gz
