@@ -44,4 +44,5 @@ resource "google_bigquery_dataset" "dataset" {
   dataset_id = "data_engineer_camp_2026_dataset"
   project    = "data-engineer-camp-2026"
   location   = "africa-south1"
+  delete_contents_on_destroy = true
 }

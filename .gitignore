@@ -27,3 +27,7 @@ terraform.rc
 *.tfplan.*
 *.zip
 *.tar.gz
+**.venv
+pyproject.toml
+uv.lock
+.python-version

@@ -9,6 +9,8 @@ services:
       - "ny_taxi_postgres_data:/var/lib/postgresql"
     ports:
       - "5432:5432"
+    networks:
+      - taxi_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -19,9 +21,13 @@ services:
       - "pgadmin_data:/var/lib/pgadmin"
     ports:
       - "8085:80"
+    networks:
+      - taxi_network
 
-
-
+networks:
+  taxi_network:
+    name: taxi_network  # This forces the name to be exactly 'taxi_network'
+    driver: bridge
 volumes:
   ny_taxi_postgres_data:
   pgadmin_data:

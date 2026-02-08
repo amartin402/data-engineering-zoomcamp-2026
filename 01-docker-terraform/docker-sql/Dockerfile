@@ -1,5 +1,5 @@
 # Start with slim Python 3.13 image
-FROM python:3.13.10-slim
+FROM python:3.13.11
 
 # Copy uv binary from official uv image (multi-stage build pattern)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
