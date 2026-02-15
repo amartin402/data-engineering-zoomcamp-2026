@@ -31,3 +31,5 @@ terraform.rc
 pyproject.toml
 uv.lock
 .python-version
+/04-analytics-engineering/terraform
+/04-analytics-engineering/terraform/*
