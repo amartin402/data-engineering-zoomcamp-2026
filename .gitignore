@@ -33,3 +33,11 @@ uv.lock
 .python-version
 /04-analytics-engineering/terraform
 /04-analytics-engineering/terraform/*
+.bruin.yml
+/05-data-platforms/my-first-pipeline
+# /05-data-platforms/my-first-pipeline/*
+logs/runs
+logs/*.log
+__pycache__/
+*.py[cod]
+duckdb.db
