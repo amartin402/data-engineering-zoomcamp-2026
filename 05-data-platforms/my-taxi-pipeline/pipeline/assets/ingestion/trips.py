@@ -67,42 +67,20 @@ import pandas as pd
 # If you choose the manual-write approach (no `materialization:` block), remove this function and implement ingestion
 # as a standard Python script instead.
 def materialize():
-    """
-    TODO: Implement ingestion using Bruin runtime context.
-
-    Required Bruin concepts to use here:
-    - Built-in date window variables:
-      - BRUIN_START_DATE / BRUIN_END_DATE (YYYY-MM-DD)
-      - BRUIN_START_DATETIME / BRUIN_END_DATETIME (ISO datetime)
-      Docs: https://getbruin.com/docs/bruin/assets/python#environment-variables
-    - Pipeline variables:
-      - Read JSON from BRUIN_VARS, e.g. `taxi_types`
-      Docs: https://getbruin.com/docs/bruin/getting-started/pipeline-variables
-
-    Design TODOs (keep logic minimal, focus on architecture):
-    - Use start/end dates + `taxi_types` to generate a list of source endpoints for the run window.
-    - Fetch data for each endpoint, parse into DataFrames, and concatenate.
-    - Add a column like `extracted_at` for lineage/debugging (timestamp of extraction).
-    - Prefer append-only in ingestion; handle duplicates in staging.
-    """
-
-    # Generate list of months between start and end dates
-    # Fetch parquet files from:
-    # https://d37ci6vzurychx.cloudfront.net/trip-data/{taxi_type}_tripdata_{year}-{month}.parquet
-    
     # 1. Parse environment variables
-    start_date = pd.to_datetime(os.environ["BRUIN_START_DATE"])
-    end_date = pd.to_datetime(os.environ["BRUIN_END_DATE"])
-    # Safely load taxi_types from Bruin vars
+    # We use .get() to avoid KeyErrors if running outside Bruin
+    start_date = pd.to_datetime(os.environ.get("BRUIN_START_DATE", "2024-01-01"))
+    end_date = pd.to_datetime(os.environ.get("BRUIN_END_DATE", "2024-02-01"))
+    
     vars_dict = json.loads(os.environ.get("BRUIN_VARS", "{}"))
     taxi_types = vars_dict.get("taxi_types", ["yellow"])
 
-    # 2. Generate month range (e.g., '2023-01', '2023-02')
+    # 2. Generate months - Ensure we only get the start of each month
     months = pd.date_range(start=start_date, end=end_date, freq='MS')
     
     all_frames = []
-
-    # 3. Fetch data for each type and month
+    
+    # 3. Fetch data
     for taxi in taxi_types:
         for month in months:
             year_str = month.strftime('%Y')
@@ -111,40 +89,35 @@ def materialize():
             url = f"https://d37ci6vzurychx.cloudfront.net/trip-data/{taxi}_tripdata_{year_str}-{month_str}.parquet"
             
             try:
-                df = pd.read_parquet(url)
+                # Use columns parameter in read_parquet to only load what we need from disk
+                # This significantly reduces memory usage!
+                raw_cols = ['tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID', 'fare_amount', 'payment_type'] 
+                if taxi == 'green':
+                    raw_cols = [c.replace('tpep', 'lpep') for c in raw_cols]
+
+                df = pd.read_parquet(url, columns=raw_cols)
                 
-                # 4. Normalize column names to match Bruin metadata
-                # Yellow uses 'tpep', Green uses 'lpep'
+                # 4. Normalize
                 rename_map = {
                     'tpep_pickup_datetime': 'pickup_datetime',
                     'tpep_dropoff_datetime': 'dropoff_datetime',
                     'lpep_pickup_datetime': 'pickup_datetime',
                     'lpep_dropoff_datetime': 'dropoff_datetime',
                     'PULocationID': 'pickup_location_id',
-                    'DOLocationID': 'dropoff_location_id',
-                    'fare_amount': 'fare_amount',
-                    'payment_type': 'payment_type'
+                    'DOLocationID': 'dropoff_location_id'
                 }
                 df = df.rename(columns=rename_map)
                 df['taxi_type'] = taxi
                 
-                # Keep only what we defined in the @bruin section
-                keep_cols = [
-                    'pickup_datetime', 'dropoff_datetime', 
-                    'pickup_location_id', 'dropoff_location_id', 
-                    'fare_amount', 'payment_type', 'taxi_type'
-                ]
-
-                all_frames.append(df[keep_cols])
+                all_frames.append(df)
+                print(f"Successfully loaded {taxi} {year_str}-{month_str}")
                 
             except Exception as e:
-                print(f"Could not fetch data for {taxi} on {year_str}-{month_str}: {e}")
+                print(f"Skipping {taxi} {year_str}-{month_str}: {e}")
 
-# 5. Combine and return
     if not all_frames:
-        return pd.DataFrame(columns=['pickup_datetime', 'dropoff_datetime', 'pickup_location_id', 'dropoff_location_id', 'fare_amount', 'payment_type', 'taxi_type'])
+        return pd.DataFrame()
         
-    final_dataframe = pd.concat(all_frames, ignore_index=True)
-    return final_dataframe
+    return pd.concat(all_frames, ignore_index=True)
 
 

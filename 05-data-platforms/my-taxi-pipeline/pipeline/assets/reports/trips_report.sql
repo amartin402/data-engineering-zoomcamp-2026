@@ -12,6 +12,7 @@ name: reports.trips_report
 # Docs: https://getbruin.com/docs/bruin/assets/sql
 # suggested type: duckdb.sql
 type: duckdb.sql
+connection: duckdb-default
 
 # TODO: Declare dependency on the staging asset(s) this report reads from.
 depends:
