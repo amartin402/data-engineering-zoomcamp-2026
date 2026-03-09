@@ -42,3 +42,4 @@ __pycache__/
 *.py[cod]
 duckdb.db
 logs/queries
+/06-batch/data/*
