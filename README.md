@@ -14,5 +14,5 @@ Course walkthrough: Data Engineering Zoomcamp 2026 (by DataTalksClub).
 - [**Module 3:** Data Warehouse (BigQuery)](https://www.linkedin.com/posts/ashley-martin-8052a056_github-datatalksclubdata-engineering-zoomcamp-activity-7426556579426066432-xscV?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
 - **Module 4:** Analytics Engineering (DBT) (Did not complete section)
 - [**Module 5:** Data Platforms (Bruin)](https://www.linkedin.com/posts/ashley-martin-8052a056_welcome-to-datatalksclub-activity-7433918460725841921-bPXb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
-- [**Module 5:** Batch Processing (Spark)](https://www.linkedin.com/posts/ashley-martin-8052a056_welcome-to-datatalksclub-activity-7436780625778606082-sT7M?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
-- **Module 6:** Stream Processing (Redpanda) (Did not complete section)
+- [**Module 6:** Batch Processing (Spark)](https://www.linkedin.com/posts/ashley-martin-8052a056_welcome-to-datatalksclub-activity-7436780625778606082-sT7M?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
+- **Module 7:** Stream Processing (Redpanda) (Did not complete section)
