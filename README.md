@@ -16,3 +16,10 @@ Course walkthrough: Data Engineering Zoomcamp 2026 (by DataTalksClub).
 - [**Module 5:** Data Platforms (Bruin)](https://www.linkedin.com/posts/ashley-martin-8052a056_welcome-to-datatalksclub-activity-7433918460725841921-bPXb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
 - [**Module 6:** Batch Processing (Spark)](https://www.linkedin.com/posts/ashley-martin-8052a056_welcome-to-datatalksclub-activity-7436780625778606082-sT7M?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAvJ5oUBR1Wz-FzSIRsVoDKGrpv3EdKsHbA)
 - **Module 7:** Stream Processing (Redpanda) (Did not complete section)
+
+<div>
+<p align="center">
+    <a href="https://github.com/DataTalksClub/data-engineering-zoomcamp/" target="_blank" rel="noreferrer"> <img
+            src="https://github.com/amartin402/github-icons/blob/main/data_engineering_zoomcamp_certificate.png"
+            title="Data Engineering Zoomcamp 2026 Certificate" alt="DataEngineeringZoomcamp2026Certificate"/> </a>
+</div>
