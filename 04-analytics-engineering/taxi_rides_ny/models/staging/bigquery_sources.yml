@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_data
+    description: "Raw data source for NYC taxi rides"
+    database: data-engineer-camp-2026
+    schema: nytaxi
+    tables:
+      - name: green_tripdata
+      - name: yellow_tripdata
